@@ -26,8 +26,13 @@ app.get('/login', (req, res, next) => {
                 console.log(err);
                 res.status(400).send(err);
             }
-
-            res.status(200).send(result.rows);
+res.json({
+    user_name : 'ram',
+    display_text :'Please enter your 6 Digit Pin Number',
+    source :'chatbottest'
+    
+});
+           // res.status(200).send(result.rows);
        })
    })
 });
