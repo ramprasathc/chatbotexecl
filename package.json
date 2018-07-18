@@ -1,0 +1,15 @@
+{
+  "name": "chatbottest",
+  "version": "1.0.0",
+  "description": "chatbottest",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "ramprasathc",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+	"pg": "^7.3.0",
+  }
+}
