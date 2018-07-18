@@ -15,7 +15,7 @@ const config = {
 // pool takes the object above -config- as parameter
 const pool = new pg.Pool(config);
 
-app.get('/login', (req, res, next) => {
+app.post('/login', (req, res, next) => {
    pool.connect(function (err, client, done) {
        if (err) {
            console.log("Can not connect to the DB" + err);
