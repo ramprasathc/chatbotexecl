@@ -27,8 +27,8 @@ app.post('/login', (req, res, next) => {
                 res.status(400).send(err);
             }
 res.json({
-    user_name : 'ram',
-    display_text :'Please enter your 6 Digit Pin Number',
+    fulfillmentText : 'Default Reponse',
+    fulfillmentMessages :[{"text":{"text":['Please enter your 6 Digit Pin Number']}}],
     source :'chatbottest'
     
 });
