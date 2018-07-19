@@ -16,8 +16,8 @@ const config = {
 const pool = new pg.Pool(config);
 
 app.post('/login', (req, res, next) => {
-        if (req.body.result.action == "login")
-        {
+    //    if (req.body.result.action == "login")
+     //   {
            pool.connect(function (err, client, done) {
            if (err) {
                console.log("Can not connect to the DB" + err);
@@ -36,15 +36,15 @@ app.post('/login', (req, res, next) => {
                    // res.status(200).send(result.rows);
            });
            });
-        }
-    else
+   //     }
+ /*   else
         {
             res.json({
                     fulfillmentText : 'Default Reponse',
                     fulfillmentMessages :[{"text":{"text":['chatbot']}}],
                     source :'chatbottest'
                 });
-        }
+        }*/
 });
 app.set( 'port', ( 5000 ));
 app.listen(app.get('port'));
