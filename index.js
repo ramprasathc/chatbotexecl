@@ -37,11 +37,14 @@ app.get('/login', (req, res, next) => {
                     source :'chatbottest'
                 });
                }
+               else
+               {
                 res.json({
                     fulfillmentText : 'Default Reponse',
                     fulfillmentMessages :[{"text":{"text":['af']}}],
                     source :'chatbottest'
                 });
+               }
                    // res.status(200).send(result.rows);
            });
            });
