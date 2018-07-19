@@ -30,7 +30,7 @@ app.post('/login', (req, res, next) => {
                     source :'chatbottest'
                 });  
     }
-    if (req.body.queryResult.action == "input.login")
+    else if (req.body.queryResult.action == "input.login")
     {
            pool.connect(function (err, client, done) {
            if (err) {
@@ -52,7 +52,7 @@ app.post('/login', (req, res, next) => {
            });
            });
  }
-     if (req.body.queryResult.action == "input-login-auth")
+     else if (req.body.queryResult.action == "input-login-auth")
     {
            pool.connect(function (err, client, done) {
            if (err) {
@@ -81,8 +81,8 @@ app.post('/login', (req, res, next) => {
                     fulfillmentMessages :[{"text":{"text":[req.body.queryResult.fulfillmentText]}}],
                     source :'chatbottest'
                 });
-        }*/
-    }
+        }
+    
 });
 app.set( 'port', (process.env.PORT || 5000 ));
 app.listen(app.get('port'));
