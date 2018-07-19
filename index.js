@@ -1,6 +1,9 @@
 const pg        = require('pg');
 const express   = require('express');
+var bodyParser = require('body-parser');
 const app       = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
 
 const config = {
     user: 'mvurcmhguiswwo',
