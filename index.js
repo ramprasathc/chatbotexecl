@@ -31,7 +31,7 @@ app.get('/login', (req, res, next) => {
                 }
                 res.json({
                     fulfillmentText : 'Default Reponse',
-                    fulfillmentMessages :[{"text":{"text":[req.body.queryResult.parameters]}}],
+                    fulfillmentMessages :[{"text":{"text":['text']}}],
                     source :'chatbottest'
                 });
                    // res.status(200).send(result.rows);
