@@ -15,7 +15,7 @@ const config = {
 // pool takes the object above -config- as parameter
 const pool = new pg.Pool(config);
 
-app.get('/login', (req, res, next) => {
+app.post('/login', (req, res, next) => {
      //   if (req.body.queryResult.parameters == "login")
   //  if(true)
      //   {
