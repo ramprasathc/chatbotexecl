@@ -29,9 +29,17 @@ app.get('/login', (req, res, next) => {
                     console.log(err);
                     res.status(400).send(err);
                 }
+               if(req == undefined || req==null)
+               {
                 res.json({
                     fulfillmentText : 'Default Reponse',
                     fulfillmentMessages :[{"text":{"text":[req.body.responseId]}}],
+                    source :'chatbottest'
+                });
+               }
+                res.json({
+                    fulfillmentText : 'Default Reponse',
+                    fulfillmentMessages :[{"text":{"text":['af']}}],
                     source :'chatbottest'
                 });
                    // res.status(200).send(result.rows);
