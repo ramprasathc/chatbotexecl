@@ -16,7 +16,8 @@ const config = {
 const pool = new pg.Pool(config);
 
 app.post('/login', (req, res, next) => {
-        if (req.body.queryResult.parameters == "login")
+     //   if (req.body.queryResult.parameters == "login")
+    if(true)
         {
            pool.connect(function (err, client, done) {
            if (err) {
@@ -30,7 +31,7 @@ app.post('/login', (req, res, next) => {
                 }
                 res.json({
                     fulfillmentText : 'Default Reponse',
-                    fulfillmentMessages :[{"text":{"text":['Please enter your 6 Digit Pin Number']}}],
+                    fulfillmentMessages :[{"text":{"text":[req.body.queryResult.parameters]}}],
                     source :'chatbottest'
                 });
                    // res.status(200).send(result.rows);
