@@ -29,7 +29,7 @@ app.post('/login', (req, res, next) => {
                     console.log(err);
                     res.status(400).send(err);
                 }
-               if(req.body.responseId == undefined || req.body.responseId==null)
+             /*  if(req.body.responseId == undefined || req.body.responseId==null)
                {
                 res.json({
                     fulfillmentText : 'Default Reponse',
@@ -38,13 +38,13 @@ app.post('/login', (req, res, next) => {
                 });
                }
                else
-               {
+               {*/
                 res.json({
                     fulfillmentText : 'Default Reponse',
                     fulfillmentMessages :[{"text":{"text":['af']}}],
                     source :'chatbottest'
                 });
-               }
+              // }
                    // res.status(200).send(result.rows);
            });
            });
