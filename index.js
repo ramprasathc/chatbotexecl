@@ -16,6 +16,17 @@ const config = {
 const pool = new pg.Pool(config);
 
 app.post('/login', (req, res, next) => {
+    var id = (req.body.responseId);
+    if(id== undefined || id.length !=0)
+    {
+        res.json({
+                    fulfillmentText : 'Default Reponse',
+                    fulfillmentMessages :[{"text":{"text":['chatbot']}}],
+                    source :'chatbottest'
+                });
+    }
+    else
+    {
      //   if (req.body.queryResult.parameters == "login")
   //  if(true)
      //   {
@@ -57,6 +68,7 @@ app.post('/login', (req, res, next) => {
                     source :'chatbottest'
                 });
         }*/
+    }
 });
 app.set( 'port', (process.env.PORT || 5000 ));
 app.listen(app.get('port'));
