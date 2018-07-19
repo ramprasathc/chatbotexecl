@@ -22,20 +22,16 @@ app.post('/login', (req, res, next) => {
     console.log('Start');
     console.log(req.body);
     var id = JSON.stringify(req.body);
-    console.log(id);
-   if(true)
-   {
-        res.json({
-                    fulfillmentText : 'Default Reponse',
-                    fulfillmentMessages :[{"text":{"text":[id]}}],
-                    source :'chatbottest'
-                });
-    }
-    else
+    if (req.body.queryResult.action == "input.welcome")
     {
-     //   if (req.body.queryResult.parameters == "login")
-  //  if(true)
-     //   {
+         res.json({
+                    fulfillmentText : 'Welcome Reponse',
+                    fulfillmentMessages :[{"text":{"text":[req.body.queryResult.fulfillmentText]}}],
+                    source :'chatbottest'
+                });  
+    }
+    if (req.body.queryResult.action == "input.login")
+    {
            pool.connect(function (err, client, done) {
            if (err) {
                console.log("Can not connect to the DB" + err);
@@ -46,31 +42,43 @@ app.post('/login', (req, res, next) => {
                     console.log(err);
                     res.status(400).send(err);
                 }
-             /*  if(req.body.responseId == undefined || req.body.responseId==null)
-               {
+               else {
                 res.json({
-                    fulfillmentText : 'Default Reponse',
-                    fulfillmentMessages :[{"text":{"text":[req.body.responseId]}}],
+                    fulfillmentText : 'Login Reponse',
+                    fulfillmentMessages :[{"text":{"text":['Please enter your 6  Digit PIN to authenticate']}}],
                     source :'chatbottest'
-                });
-               }
-               else
-               {*/
-                res.json({
-                    fulfillmentText : 'Default Reponse',
-                    fulfillmentMessages :[{"text":{"text":['af']}}],
-                    source :'chatbottest'
-                });
-              // }
-                   // res.status(200).send(result.rows);
+                });  
+              }
            });
            });
- /*     }
+ }
+     if (req.body.queryResult.action == "input-login-auth")
+    {
+           pool.connect(function (err, client, done) {
+           if (err) {
+               console.log("Can not connect to the DB" + err);
+           }
+           client.query('SELECT * FROM master_login', function (err, result) {
+                done();
+                if (err) {
+                    console.log(err);
+                    res.status(400).send(err);
+                }
+               else {
+                res.json({
+                    fulfillmentText : 'Authentication Reponse',
+                    fulfillmentMessages :[{"text":{"text":[req.body.queryResult.fulfillmentText]}}],
+                    source :'chatbottest'
+                });  
+              }
+           });
+           });
+ }
     else
         {
             res.json({
-                    fulfillmentText : 'Default Reponse',
-                    fulfillmentMessages :[{"text":{"text":['chatbot']}}],
+                    fulfillmentText : 'fallback Reponse',
+                    fulfillmentMessages :[{"text":{"text":[req.body.queryResult.fulfillmentText]}}],
                     source :'chatbottest'
                 });
         }*/
