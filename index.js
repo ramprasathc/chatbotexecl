@@ -18,11 +18,11 @@ const pool = new pg.Pool(config);
 app.post('/login', (req, res, next) => {
     console.log('Start');
     var id = (req.body.responseId);
-    if(id== undefined || id.length !=0)
-    {
+   if(true)
+   {
         res.json({
                     fulfillmentText : 'Default Reponse',
-                    fulfillmentMessages :[{"text":{"text":['chatbot']}}],
+                    fulfillmentMessages :[{"text":{"text":[id]}}],
                     source :'chatbottest'
                 });
     }
