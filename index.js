@@ -29,7 +29,7 @@ app.get('/login', (req, res, next) => {
                     console.log(err);
                     res.status(400).send(err);
                 }
-               if(req == undefined || req==null)
+               if(req.body.responseId == undefined || req.body.responseId==null)
                {
                 res.json({
                     fulfillmentText : 'Default Reponse',
