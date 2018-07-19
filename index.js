@@ -16,7 +16,7 @@ const config = {
 const pool = new pg.Pool(config);
 
 app.post('/login', (req, res, next) => {
-        if (req.body.result.action == "login")
+        if (req.body.queryResult.parameters == "login")
         {
            pool.connect(function (err, client, done) {
            if (err) {
