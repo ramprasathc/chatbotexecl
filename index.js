@@ -45,7 +45,7 @@ app.post('/login', (req, res, next) => {
                else {
                 res.json({
                     fulfillmentText : 'Login Reponse',
-                    fulfillmentMessages :[{"text":{"text":['Please enter your 6  Digit PIN to authenticate']}}],
+                    fulfillmentMessages :[{"text":{"text":'Please enter your 6  Digit PIN to authenticate'}}],
                     source :'chatbottest'
                 });  
               }
