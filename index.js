@@ -16,25 +16,35 @@ const config = {
 const pool = new pg.Pool(config);
 
 app.post('/login', (req, res, next) => {
-   pool.connect(function (err, client, done) {
-       if (err) {
-           console.log("Can not connect to the DB" + err);
-       }
-       client.query('SELECT * FROM master_login', function (err, result) {
-            done();
-            if (err) {
-                console.log(err);
-                res.status(400).send(err);
-            }
-res.json({
-    fulfillmentText : 'Default Reponse',
-    fulfillmentMessages :[{"text":{"text":['Please enter your 6 Digit Pin Number']}}],
-    source :'chatbottest'
-    
+        if (req.body.result.action == "login")
+        {
+           pool.connect(function (err, client, done) {
+           if (err) {
+               console.log("Can not connect to the DB" + err);
+           }
+           client.query('SELECT * FROM master_login', function (err, result) {
+                done();
+                if (err) {
+                    console.log(err);
+                    res.status(400).send(err);
+                }
+                res.json({
+                    fulfillmentText : 'Default Reponse',
+                    fulfillmentMessages :[{"text":{"text":['Please enter your 6 Digit Pin Number']}}],
+                    source :'chatbottest'
+                });
+                   // res.status(200).send(result.rows);
+           });
+           });
+        }
+    else
+        {
+            res.json({
+                    fulfillmentText : 'Default Reponse',
+                    fulfillmentMessages :[{"text":{"text":['chatbot']}}],
+                    source :'chatbottest'
+                });
+        }
 });
-           // res.status(200).send(result.rows);
-       })
-   })
-});
-app.set( 'port', ( process.env.PORT || 5000 ));
+app.set( 'port', ( 5000 ));
 app.listen(app.get('port'));
