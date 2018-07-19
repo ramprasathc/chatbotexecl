@@ -17,6 +17,7 @@ const pool = new pg.Pool(config);
 
 app.post('/login', (req, res, next) => {
     console.log('Start');
+    console.log(req);
     var id = JSON.stringify(req.body);
     console.log(id);
    if(true)
