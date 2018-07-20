@@ -78,7 +78,7 @@ app.post('/login', (req, res, next) => {
  }
      else if (req.body.queryResult.action == "login-user-authenticate")
     {
-       var param = req.body.outputContexts.['parameters'];
+       var param = req.body.outputContexts['parameters'];
         console.log(param);
         var username  = param.user_name;
         console.log(username);
