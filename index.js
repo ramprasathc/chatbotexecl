@@ -78,7 +78,10 @@ app.post('/login', (req, res, next) => {
  }
      else if (req.body.queryResult.action == "login-user-authenticate")
     {
-        var username = req.body.outputContexts.parameters.user_name;
+       var param = req.body.outputContexts.['parameters'];
+        console.log(param);
+        var username  = param.user_name;
+        console.log(username);
         var password= req.body.queryResult.parameters.pass_word;
         if(password.length=6)
         {
