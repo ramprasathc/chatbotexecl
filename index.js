@@ -25,18 +25,21 @@ app.post('/login', (req, res, next) => {
     if (req.body.queryResult.action == "login-user")
     {
         var username = req.body.queryResult.parameters.user_name;
-        console.log(username);
+        var sqlquery = "SELECT count(*) FROM master_login where user_name ='"+username+"'";
+        
+        console.log(sqlquery);
            pool.connect(function (err, client, done) {
            if (err) {
                console.log("Can not connect to the DB" + err);
            }
-           client.query("SELECT count(*) FROM master_login where user_name ='"+username+"'", function (err, result) {
+           client.query(sqlquery, function (err, result) {
                 done();
                 if (err) {
                     console.log(err);
                     res.status(400).send(err);
                 }
                else {
+                    console.log(result);
                    if(result>0)
                    {
                     res.json({
