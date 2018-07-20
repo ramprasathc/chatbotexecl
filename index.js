@@ -22,40 +22,52 @@ app.post('/login', (req, res, next) => {
     console.log('Start');
     console.log(req.body);
     var id = JSON.stringify(req.body);
-    if (req.body.queryResult.action == "input.welcome")
+    if (req.body.queryResult.action == "login-user")
     {
-         res.json({
-                    fulfillmentText : 'Welcome Reponse',
-                    fulfillmentMessages :[{"text":{"text":[req.body.queryResult.fulfillmentText]}}],
-                    source :'chatbottest'
-                });  
-    }
-    else if (req.body.queryResult.action == "input.login")
-    {
+        var user_name = req.body.queryResult.parameters[user_name];
            pool.connect(function (err, client, done) {
            if (err) {
                console.log("Can not connect to the DB" + err);
            }
-           client.query('SELECT * FROM master_login', function (err, result) {
+           client.query('SELECT count(*) FROM master_login where user_name ="'+user_name, function (err, result) {
                 done();
                 if (err) {
                     console.log(err);
                     res.status(400).send(err);
                 }
                else {
-                res.json({
-                    fulfillmentText : 'Login Reponse',
-                    fulfillmentMessages :[
-                        {
-                            "text":{
-                                "text":[
-                                    "Please enter your 6  Digit PIN to authenticate"
-                                ]
+                   if(result>0)
+                   {
+                    res.json({
+                        fulfillmentText : 'Login Reponse',
+                        fulfillmentMessages :[
+                            {
+                                "text":{
+                                    "text":[
+                                        "Please enter your 6  Digit PIN to authenticate"
+                                    ]
+                                }
                             }
-                        }
-                    ],
-                    source :'chatbottest'
-                });  
+                        ],
+                        source :'chatbottest'
+                    });
+                   }
+                   else{
+                    res.json({
+                        fulfillmentText : 'Login Reponse',
+                        fulfillmentMessages :[
+                            {
+                                "text":{
+                                    "text":[
+                                        "Kindly check your username entered"
+                                    ]
+                                }
+                            }
+                        ],
+                        source :'chatbottest'
+                    });
+                   }
+                  
               }
            });
            });
