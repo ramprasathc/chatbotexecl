@@ -24,7 +24,7 @@ app.post('/login', (req, res, next) => {
     var id = JSON.stringify(req.body);
     if (req.body.queryResult.action == "login-user")
     {
-        var username = req.body.queryResult.parameters[user_name];
+        var username = req.body.queryResult.parameters.user_name;
         console.log(username);
            pool.connect(function (err, client, done) {
            if (err) {
