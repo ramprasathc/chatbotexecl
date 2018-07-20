@@ -30,7 +30,7 @@ app.post('/login', (req, res, next) => {
            if (err) {
                console.log("Can not connect to the DB" + err);
            }
-           client.query('SELECT count(*) FROM master_login where user_name ="'+username+'"', function (err, result) {
+           client.query("SELECT count(*) FROM master_login where user_name ='"+username+"'", function (err, result) {
                 done();
                 if (err) {
                     console.log(err);
