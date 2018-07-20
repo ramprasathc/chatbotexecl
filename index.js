@@ -25,7 +25,7 @@ app.post('/login', (req, res, next) => {
     if (req.body.queryResult.action == "login-user")
     {
         var username = req.body.queryResult.parameters.user_name;
-        var sqlquery = "SELECT username FROM master_login where user_name ='"+username+"';";
+        var sqlquery = "SELECT user_name FROM master_login where user_name ='"+username+"';";
         
         console.log(sqlquery);
            pool.connect(function (err, client, done) {
