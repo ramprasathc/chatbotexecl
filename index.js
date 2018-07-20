@@ -20,16 +20,17 @@ const pool = new pg.Pool(config);
 
 app.post('/login', (req, res, next) => {
     console.log('Start');
-    console.log(req.body);
+   
     var id = JSON.stringify(req.body);
     if (req.body.queryResult.action == "login-user")
     {
-        var user_name = req.body.queryResult.parameters[user_name];
+        var username = req.body.queryResult.parameters[user_name];
+        console.log(username);
            pool.connect(function (err, client, done) {
            if (err) {
                console.log("Can not connect to the DB" + err);
            }
-           client.query('SELECT count(*) FROM master_login where user_name ="'+user_name+'"', function (err, result) {
+           client.query('SELECT count(*) FROM master_login where user_name ="'+username+'"', function (err, result) {
                 done();
                 if (err) {
                     console.log(err);
