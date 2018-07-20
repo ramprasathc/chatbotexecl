@@ -25,7 +25,7 @@ app.post('/login', (req, res, next) => {
     if (req.body.queryResult.action == "login-user")
     {
         var username = req.body.queryResult.parameters.user_name;
-        var sqlquery = "SELECT count(*) FROM master_login where user_name ='"+username+"'";
+        var sqlquery = "SELECT username FROM master_login where user_name ='"+username+"';";
         
         console.log(sqlquery);
            pool.connect(function (err, client, done) {
@@ -40,7 +40,7 @@ app.post('/login', (req, res, next) => {
                 }
                else {
                     console.log(result);
-                   if(result>0)
+                   if(result.rowCount>0)
                    {
                     res.json({
                         fulfillmentText : 'Login Reponse',
