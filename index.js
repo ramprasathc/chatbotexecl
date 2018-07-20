@@ -76,27 +76,43 @@ app.post('/login', (req, res, next) => {
            });
            });
  }
-     else if (req.body.queryResult.action == "input-login-auth")
+     else if (req.body.queryResult.action == "login-user-authenticate")
     {
-           pool.connect(function (err, client, done) {
-           if (err) {
-               console.log("Can not connect to the DB" + err);
-           }
-           client.query('SELECT * FROM master_login', function (err, result) {
-                done();
-                if (err) {
-                    console.log(err);
-                    res.status(400).send(err);
-                }
-               else {
-                res.json({
-                    fulfillmentText : 'Authentication Reponse',
-                    fulfillmentMessages :[{"text":{"text":[req.body.queryResult.fulfillmentText]}}],
-                    source :'chatbottest'
-                });  
-              }
-           });
-           });
+        var username = req.body.outputContexts.parameters.user_name;
+        var password= req.body.queryResult.parameters.pass_word;
+        if(password.length=6)
+        {
+            var sqlquery = "SELECT user_name FROM master_login where user_name ='"+username+"' and password = '"+password+"';";
+            console.log(sqlquery);
+            pool.connect(function (err, client, done) {
+            if (err) {
+                console.log("Can not connect to the DB" + err);
+            }
+            client.query(sqlquery, function (err, result) {
+                 done();
+                 if (err) {
+                     console.log(err);
+                     res.status(400).send(err);
+                 }
+                else {
+                 res.json({
+                     fulfillmentText : 'Authentication Reponse',
+                     fulfillmentMessages :[{"text":{"text":["Your Connected To Mignon Successfully, How Can I help you?"]}}],
+                     source :'chatbottest'
+                 });  
+               }
+            });
+            });
+        }
+        else{
+            res.json({
+                fulfillmentText : 'Authentication Fallback Reponse',
+                fulfillmentMessages :[{"text":{"text":["Incorrect Pin , Kindly check and Re-Enter your 6 Digit PIN"]}}],
+                source :'chatbottest'
+            });  
+
+        }
+        
  }
     else
         {
