@@ -43,7 +43,7 @@ app.post('/login', (req, res, next) => {
                    if(result.rowCount>0)
                    {
                     res.json({
-                        fulfillmentText : 'Login Reponse',
+                        fulfillmentText : 'Please enter your 6  Digit PIN to authenticate',
                         fulfillmentMessages :[
                             {
                                 "text":{
@@ -58,7 +58,7 @@ app.post('/login', (req, res, next) => {
                    }
                    else{
                     res.json({
-                        fulfillmentText : 'Login Reponse',
+                        fulfillmentText : 'Kindly check your username entered',
                         fulfillmentMessages :[
                             {
                                 "text":{
@@ -99,7 +99,7 @@ app.post('/login', (req, res, next) => {
                  }
                 else {
                  res.json({
-                     fulfillmentText : 'Authentication Reponse',
+                     fulfillmentText : 'Your Connected To Mignon Successfully, How Can I help you?',
                      fulfillmentMessages :[{"text":{"text":["Your Connected To Mignon Successfully, How Can I help you?"]}}],
                      source :'chatbottest'
                  });  
@@ -109,7 +109,7 @@ app.post('/login', (req, res, next) => {
         }
         else{
             res.json({
-                fulfillmentText : 'Authentication Fallback Reponse',
+                fulfillmentText : 'Incorrect Pin , Kindly check and Re-Enter your 6 Digit PIN',
                 fulfillmentMessages :[{"text":{"text":["Incorrect Pin , Kindly check and Re-Enter your 6 Digit PIN"]}}],
                 source :'chatbottest'
             });  
