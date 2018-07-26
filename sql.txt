@@ -1,0 +1,6 @@
+Table Name : master_login
+user_name : text
+password:text
+mail_id: text
+mobilenumber:9500879267
+
