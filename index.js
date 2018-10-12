@@ -75,7 +75,7 @@ app.post('/excel', (req, res, next) => {
             //  sumValue = Number(sumValue)+ Number(row.sep18);
               //console.log((sumValue));
                for(var j =0; j<periodArray.length;j++){
-                    console.log((row.periodArray[j]));
+                    console.log((periodArray[j]));
                   sumValue = Number(sumValue)+ Number(row.periodArray[j]);
               console.log((sumValue));
               
