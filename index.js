@@ -124,7 +124,7 @@ app.post('/excel', (req, res, next) => {
                         console.log(resultText);
 
                         res.json({
-                            fulfillmentText: 'User Reponse',
+                            fulfillmentText: resultText,
                             fulfillmentMessages: [{
                                 "text": {
                                     "text": [
@@ -198,7 +198,7 @@ app.post('/excel', (req, res, next) => {
                         console.log(resultText);
 
                         res.json({
-                            fulfillmentText: 'User Reponse',
+                            fulfillmentText: resultText,
                             fulfillmentMessages: [{
                                 "text": {
                                     "text": [
