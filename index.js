@@ -45,23 +45,69 @@ app.post('/excel', (req, res, next) => {
         console.log(project_name+'-'+helper_details+'-'+Period_Quarter+'-'+owners);
         var workbook= XLSX.readFile('Table_details.xlsx')
             var sheet_name_list = workbook.SheetNames;
-        if(helper_details ==="HeadCount")
-        {
-            
-             var HeadCountData = (XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[2]],{raw:true})); 
-        }
-        else
-        {
-          var periods = PeriodHashMap.get(Period_Quarter);
-        var periodArray = [];
+               var periodArray = [];
         if(periods.search('-')!=(-1))
         {
-            periodArray = periods.split('-');
+            periodArray = periods.split('-'); 
         }
         else
         {
              periodArray = periods.split('-');
         }
+       
+        if(helper_details ==="HeadCount")
+        {
+            
+             var HeadCountData = (XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[2]],{raw:true})); 
+             var sumValueOwnPrj=0;
+              var sumValueOwnOPrj=0;
+            var sumValueOOwnOPrj=0;
+          var sumValue;
+            var actualValue;
+          if(owners.length===0)
+          {
+           actualValue = project_name+' Project ';
+          }else
+          {
+           actualValue = owners+"'s "+project_name+' Project ';
+            
+          }
+           for(var i=0; i<HeadCountData.length; i++){
+          var row = JSON.parse(JSON.stringify(HeadCountData[i]));
+           console.log(row.ProjectName);
+           
+          if( row.Owner === owners)
+          {
+            
+                  if(row.ProjectName === project_name)
+                  {
+                     for(var j =0; j<periodArray.length;j++){
+                           console.log('Proj - '+row.Owner+' - '+periodArray[j] +' - '+row[periodArray[j]] );
+                             sumValueOwnPrj = Number(sumValueOwnPrj)+ Number(row[periodArray[j]]);
+                       }             
+                  }
+                  else
+                  {
+                     for(var j =0; j<periodArray.length;j++){
+                          console.log('Proj - '+row.Owner+' - '+periodArray[j] +' - '+row[periodArray[j]] );
+                             sumValueOwnOPrj = Number(sumValueOwnOPrj)+ Number(row[periodArray[j]]);
+                       } 
+                  }
+          }  
+            else
+          {
+
+               for(var j =0; j<periodArray.length;j++){
+                 console.log('Proj - '+row.Owner+' - '+periodArray[j] +' - '+row[periodArray[j]] );
+                      sumValueOOwnOPrj = Number(sumValueOOwnOPrj)+ Number(row[periodArray[j]]);
+              }             
+              
+          }   
+          
+        }
+ else
+        {
+        
        
        
         var data = (XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]],{raw:true}));
