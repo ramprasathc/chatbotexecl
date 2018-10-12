@@ -74,13 +74,29 @@ app.post('/excel', (req, res, next) => {
               var sumValue=0 ;
             //  sumValue = Number(sumValue)+ Number(row.sep18);
               //console.log((sumValue));
+              console.log("periodArray : ",periodArray);
                for(var j =0; j<periodArray.length;j++){
                     console.log((periodArray[j]));
                   sumValue = Number(sumValue)+ Number(row.periodArray[j]);
               console.log((sumValue));
               
-              }
+              }             
               
+          }  
+            else
+           
+          {
+              //sum for all sep'18
+              var sumValue=0 ;
+            //  sumValue = Number(sumValue)+ Number(row.sep18);
+              //console.log((sumValue));
+              console.log("periodArray : ",periodArray);
+               for(var j =0; j<periodArray.length;j++){
+                    //console.log((periodArray[j]));
+                  sumValue = Number(sumValue)+ Number(row.sep18);
+              console.log((sumValue));
+              
+              }             
               
           }  
         }
