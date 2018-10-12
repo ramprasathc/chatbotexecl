@@ -98,10 +98,21 @@ app.post('/excel', (req, res, next) => {
                         }
                         else {
 
-                            for (var j = 0; j < periodArray.length; j++) {
-                                console.log('Proj - ' + row.Owner + ' - ' + periodArray[j] + ' - ' + row[periodArray[j]]);
-                                sumValueOOwnOPrj = Number(sumValueOOwnOPrj) + Number(row[periodArray[j]]);
-                            }
+                            if(row.ProjectName === project_name)
+                  {
+                     for(var j =0; j<periodArray.length;j++){
+                           console.log('Proj - '+row.Owner+' - '+periodArray[j] +' - '+row[periodArray[j]] );
+                             sumValueOwnPrj = Number(sumValueOwnPrj)+ Number(row[periodArray[j]]);
+                       }             
+                  }
+                  else
+                  {
+                     for(var j =0; j<periodArray.length;j++){
+                          console.log('Proj - '+row.Owner+' - '+periodArray[j] +' - '+row[periodArray[j]] );
+                             sumValueOwnOPrj = Number(sumValueOwnOPrj)+ Number(row[periodArray[j]]);
+                       } 
+                  }
+
 
                         }
 
@@ -163,10 +174,21 @@ app.post('/excel', (req, res, next) => {
                             }
                             else {
 
-                                for (var j = 0; j < periodArray.length; j++) {
-                                    console.log('Proj - ' + row.Owner + ' - ' + periodArray[j] + ' - ' + row[periodArray[j]]);
-                                    sumValueOOwnOPrj = Number(sumValueOOwnOPrj) + Number(row[periodArray[j]]);
-                                }
+                                if(row.ProjectName === project_name)
+                  {
+                     for(var j =0; j<periodArray.length;j++){
+                           console.log('Proj - '+row.Owner+' - '+periodArray[j] +' - '+row[periodArray[j]] );
+                             sumValueOwnPrj = Number(sumValueOwnPrj)+ Number(row[periodArray[j]]);
+                       }             
+                  }
+                  else
+                  {
+                     for(var j =0; j<periodArray.length;j++){
+                          console.log('Proj - '+row.Owner+' - '+periodArray[j] +' - '+row[periodArray[j]] );
+                             sumValueOwnOPrj = Number(sumValueOwnOPrj)+ Number(row[periodArray[j]]);
+                       } 
+                  }
+
 
                             }
 
