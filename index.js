@@ -106,6 +106,9 @@ app.post('/excel', (req, res, next) => {
                         }
 
                     }
+                       sumValue =sumValueOwnPrj+' - '+sumValueOwnOPrj+' - '+sumValueOOwnOPrj;
+                      console.log(sumValue);
+
                      var resultText = actualValue + helper_details + ' for this ' + Period_Quarter + ' is ' + sumValueOwnPrj;
                         console.log(resultText);
 
