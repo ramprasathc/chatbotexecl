@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 const app       = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
+const XLSX = require('xlsx');
 
 const config = {
     user: 'mvurcmhguiswwo',
@@ -17,9 +18,90 @@ const config = {
 
 // pool takes the object above -config- as parameter
 const pool = new pg.Pool(config);
-
+app.post('/excel', (req, res, next) => {
+    var id = JSON.stringify(req.body);
+  if (req.body.queryResult.action == "helper-excel")
+//    if ('helper-excel' == "helper-excel")
+    {
+        var project_name = req.body.queryResult.parameters.project_name;
+        var helper_details = req.body.queryResult.parameters.helper_details;
+        var Period_Quarter = req.body.queryResult.parameters.Period_Quarter;
+        var owners = req.body.queryResult.parameters.owners;
+        var PeriodHashMap = new Map([['Quarter1' , 'Apr18-May18-Jun18'],
+        ['Quarter2' , 'Jul18-Aug18-Sep18'] ,
+        ['Quarter3' , 'Oct18-Nov18-Dec18'],
+        ['Quarter4' , 'Jan19-Feb19-Mar19'],
+        ['Jan','Jan19'],['Feb','Feb19'],
+        ['Mar','Mar19'],['Apr','Arp18'],
+        ['May','May18'],['Jun','Jun18'],
+        ['Jul','Jul18'],['Aug','Aug18'],
+        ['Sep','Sep18'],['Oct','Oct18'],
+        ['Nov','Nov18'],['Dec','Dec18'],
+        ]); 
+        //var project_name  = 'Trafigura';
+        //var  owners = 'Sujat';
+        //var  helper_details= 'Projection';
+        //var Period_Quarter = 'Jan';
+        console.log(project_name+'-'+helper_details+'-'+Period_Quarter+'-'+owners);
+        var workbook= XLSX.readFile('Table_details.xlsx')
+            var sheet_name_list = workbook.SheetNames;
+        if(helper_details ==="HeadCount")
+        {
+            
+             var HeadCountData = (XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[1]],{raw:true})); 
+        }
+        else
+        {
+          var periods = PeriodHashMap.get(Period_Quarter);
+        var periodArray = [];
+        if(periods.search('-')!=(-1))
+        {
+            periodArray = periods.split('-');
+        }
+        else
+        {
+             periodArray = periods.split('-');
+        }
+       
+       
+        var data = (XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]],{raw:true}));
+        for(var i=0; i<data.length; i++){
+          var row = JSON.parse(JSON.stringify(data[i]));
+          
+           if( row.Owner === owners)
+          {
+              //sum for all sep'18
+              var sumValue=0 ;
+              sumValue = Number(sumValue)+ Number(row.sep18);
+              console.log((sumValue));
+              
+              
+          }  
+        }
+        var resultText = owners+"'s "+helper_details+' for this '+Period_Quarter+' is '+sumValue;
+              res.json({
+                fulfillmentText : 'User Reponse',
+                fulfillmentMessages :[
+                    {
+                        "text":{
+                            "text":[
+                                resultText
+                            ]
+                        }
+                    }
+                ],
+                source :'chatbottest'
+            });
+        
+         
+      }
+    }
+    
+    
+});
 app.post('/login', (req, res, next) => {
     console.log('Start');
+    
    
     var id = JSON.stringify(req.body);
     if (req.body.queryResult.action == "login-user")
@@ -43,7 +125,7 @@ app.post('/login', (req, res, next) => {
                    if(result.rowCount>0)
                    {
                     res.json({
-                        fulfillmentText : 'Please enter your 6  Digit PIN to authenticate',
+                        fulfillmentText : 'Login Reponse',
                         fulfillmentMessages :[
                             {
                                 "text":{
@@ -58,7 +140,7 @@ app.post('/login', (req, res, next) => {
                    }
                    else{
                     res.json({
-                        fulfillmentText : 'Kindly check your username entered',
+                        fulfillmentText : 'Login Reponse',
                         fulfillmentMessages :[
                             {
                                 "text":{
@@ -78,7 +160,7 @@ app.post('/login', (req, res, next) => {
  }
      else if (req.body.queryResult.action == "login-user-authenticate")
     {
-         var param = req.body.queryResult.outputContexts[0];
+        var param = req.body.queryResult.outputContexts[0];
         console.log(param);
         var username  = param.user_name;
         console.log(username);
@@ -99,7 +181,7 @@ app.post('/login', (req, res, next) => {
                  }
                 else {
                  res.json({
-                     fulfillmentText : 'Your Connected To Mignon Successfully, How Can I help you?',
+                     fulfillmentText : 'Authentication Reponse',
                      fulfillmentMessages :[{"text":{"text":["Your Connected To Mignon Successfully, How Can I help you?"]}}],
                      source :'chatbottest'
                  });  
@@ -109,7 +191,7 @@ app.post('/login', (req, res, next) => {
         }
         else{
             res.json({
-                fulfillmentText : 'Incorrect Pin , Kindly check and Re-Enter your 6 Digit PIN',
+                fulfillmentText : 'Authentication Fallback Reponse',
                 fulfillmentMessages :[{"text":{"text":["Incorrect Pin , Kindly check and Re-Enter your 6 Digit PIN"]}}],
                 source :'chatbottest'
             });  
