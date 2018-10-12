@@ -106,6 +106,21 @@ app.post('/excel', (req, res, next) => {
                         }
 
                     }
+                     var resultText = actualValue + helper_details + ' for this ' + Period_Quarter + ' is ' + sumValueOwnPrj;
+                        console.log(resultText);
+
+                        res.json({
+                            fulfillmentText: 'User Reponse',
+                            fulfillmentMessages: [{
+                                "text": {
+                                    "text": [
+                                        resultText
+                                    ]
+                                }
+                            }],
+                            source: 'chatbottest'
+                        });
+
                 }
                     else {
 
