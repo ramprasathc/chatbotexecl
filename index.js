@@ -52,6 +52,8 @@ app.post('/excel', (req, res, next) => {
                 console.log(project_name + '-' + helper_details + '-' + Period_Quarter + '-' + owners);
                 var workbook = XLSX.readFile('Table_details.xlsx')
                 var sheet_name_list = workbook.SheetNames;
+                 var periods = PeriodHashMap.get(Period_Quarter);
+
                 var periodArray = [];
                 if (periods.search('-') != (-1)) {
                     periodArray = periods.split('-');
