@@ -48,7 +48,7 @@ app.post('/excel', (req, res, next) => {
         if(helper_details ==="HeadCount")
         {
             
-             var HeadCountData = (XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[1]],{raw:true})); 
+             var HeadCountData = (XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[2]],{raw:true})); 
         }
         else
         {
