@@ -27,12 +27,12 @@ app.post('/excel', (req, res, next) => {
         var helper_details = req.body.queryResult.parameters.helper_details;
         var Period_Quarter = req.body.queryResult.parameters.Period_Quarter;
         var owners = req.body.queryResult.parameters.owners;
-        var PeriodHashMap = new Map([['Quarter1' , 'Apr18-May18-Jun18'],
+        var PeriodHashMap = new Map([['Quarter1' , 'April18-May18-Jun18'],
         ['Quarter2' , 'Jul18-Aug18-Sep18'] ,
         ['Quarter3' , 'Oct18-Nov18-Dec18'],
         ['Quarter4' , 'Jan19-Feb19-Mar19'],
         ['Jan','Jan19'],['Feb','Feb19'],
-        ['Mar','Mar19'],['Apr','Arp18'],
+        ['Mar','Mar19'],['Apr','April18'],
         ['May','May18'],['Jun','Jun18'],
         ['Jul','Jul18'],['Aug','Aug18'],
         ['Sep','Sep18'],['Oct','Oct18'],
@@ -65,42 +65,56 @@ app.post('/excel', (req, res, next) => {
        
        
         var data = (XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]],{raw:true}));
+      var sumValueOwnPrj=0;
+          var sumValueOwnOPrj=0;
+          var sumValueOOwnOPrj=0;
+          var sumValue;
+            var actualValue;
+          if(owners.length===0)
+          {
+           actualValue = project_name+' Project ';
+          }else
+          {
+           actualValue = owners+"'s "+project_name+' Project ';
+            
+          }
         for(var i=0; i<data.length; i++){
           var row = JSON.parse(JSON.stringify(data[i]));
-          
-           if( row.Owner === owners)
+           console.log(row.ProjectName);
+           
+          if( row.Owner === owners)
           {
-              //sum for all sep'18
-              var sumValue=0 ;
-            //  sumValue = Number(sumValue)+ Number(row.sep18);
-              //console.log((sumValue));
-              console.log("periodArray : ",periodArray);
-               for(var j =0; j<periodArray.length;j++){
-                    console.log((periodArray[j]));
-                  sumValue = Number(sumValue)+ Number(row.periodArray[j]);
-              console.log((sumValue));
-              
-              }             
-              
+            
+                  if(row.ProjectName === project_name)
+                  {
+                     for(var j =0; j<periodArray.length;j++){
+                           console.log('Proj - '+row.Owner+' - '+periodArray[j] +' - '+row[periodArray[j]] );
+                             sumValueOwnPrj = Number(sumValueOwnPrj)+ Number(row[periodArray[j]]);
+                       }             
+                  }
+                  else
+                  {
+                     for(var j =0; j<periodArray.length;j++){
+                          console.log('Proj - '+row.Owner+' - '+periodArray[j] +' - '+row[periodArray[j]] );
+                             sumValueOwnOPrj = Number(sumValueOwnOPrj)+ Number(row[periodArray[j]]);
+                       } 
+                  }
           }  
             else
-           
           {
-              //sum for all sep'18
-              var sumValue=0 ;
-            //  sumValue = Number(sumValue)+ Number(row.sep18);
-              //console.log((sumValue));
-              console.log("periodArray : ",periodArray);
+
                for(var j =0; j<periodArray.length;j++){
-                    //console.log((periodArray[j]));
-                  sumValue = Number(sumValue)+ Number(row.sep18);
-              console.log((sumValue));
-              
+                 console.log('Proj - '+row.Owner+' - '+periodArray[j] +' - '+row[periodArray[j]] );
+                      sumValueOOwnOPrj = Number(sumValueOOwnOPrj)+ Number(row[periodArray[j]]);
               }             
               
-          }  
+          }   
+          
         }
-        var resultText = owners+"'s "+helper_details+' for this '+Period_Quarter+' is '+sumValue;
+
+        var resultText =actualValue +helper_details+' for this '+Period_Quarter+' is '+sumValueOwnPrj;
+        console.log(resultText);
+
               res.json({
                 fulfillmentText : 'User Reponse',
                 fulfillmentMessages :[
